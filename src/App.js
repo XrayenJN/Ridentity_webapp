@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+import React from 'react';
+
 import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Homepage from "./components/Homepage"
+import SignUp from './components/SignUp';
+import SignIn from './components/LogIn';
+import Dashboard from './components/Dashboard';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import {  useAuth } from './firebase';
+
+
 
 function App() {
+  const currentUser = useAuth();
+  const ProtectedRoute = ({ currentUser, children }) => {
+    if (!currentUser){
+      return <Navigate to='/login' replace />;
+    }
+
+    return children;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Homepage />}>
+        <Route path="/createUser" element={<SignUp />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/dashboard" element={
+          <ProtectedRoute currentUser={useAuth()}>
+            <Dashboard />
+          </ProtectedRoute>} />
+      </Route>
+    </Routes>
   );
 }
 
