@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { GoogleAuthProvider } from 'firebase/auth';
+import { getStorage } from "firebase/storage";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -16,15 +18,17 @@ const firebaseConfig = {
 
 const app =initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth();
+export const storage = getStorage(app);
+export const auth = getAuth(app);
+ const googleProvider = new GoogleAuthProvider();
 
 export function signUp(email, password){
     return createUserWithEmailAndPassword(auth, email, password);
 }
 
-export function signUpWithGmail(googleProvider){
-    return signInWithPopup(auth, googleProvider);
-}
+// export function signUpWithGmail(googleProvider){
+//     return signInWithPopup(auth, googleProvider);
+// }
 
 export function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
@@ -34,6 +38,20 @@ export function login(email, password) {
     return signOut(auth);
   }
   
+
+
+
+
+export const signInWithGoogle = async () => {
+  try {
+    await signInWithPopup(auth, googleProvider);
+    window.location = '/dashboard'
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
   // Custom Hook
   export function useAuth() {
     const [ currentUser, setCurrentUser ] = useState();

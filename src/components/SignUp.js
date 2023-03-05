@@ -10,7 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signUp } from '../firebase';
 
 function Copyright(props) {
   return (
@@ -28,13 +28,13 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-        createUserWithEmailAndPassword(data.get('email'), data.get('password'));
+        await signUp(data.get('email'), data.get('password'));
     } catch {
-        alert("You have registered this email before!");
+        alert("Error! Password should at least be 6 characters");
     }
   };
 
@@ -80,19 +80,20 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }} 
-              href="/dashboard"
-            >
-              Sign Up
-            </Button>
+            <Link href='/dashboard'>
+                <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }} 
+                >
+                Sign Up
+                </Button>
+            </Link>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
-                  Already have an account? Sign in
+                  Already have an account? Log in
                 </Link>
               </Grid>
             </Grid>

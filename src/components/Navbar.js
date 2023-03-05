@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useAuth } from '../firebase';
 import { logout } from '../firebase';
 
+const verifyStatus = false;
 
 export default function Navbar() {
     // AUTH PART
@@ -33,13 +34,30 @@ export default function Navbar() {
                                 </div>
                                 :
                                 <div>
-                                    <Link to="/createUser" className="nav-link">Sign Up</Link>
+                                    <Link to="/signup" className="nav-link">Sign Up</Link>
                                     <Link to="/login" className="nav-link">Sign In</Link>
                                 </div>
 
                         }
                         <li className="navbar-item">
+                            {
+                                verifyStatus ?
+                                <div>
+                            <Link to="/verifyUser" className="nav-link">VerifyUser</Link>
+                                </div>
+                                :
+                                ""
+                            }
+                        {
+                            currentUser ?
+                            <div>
                             <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                            </div>
+                            :
+                            <div>
+                            <Link to="/login" className="nav-link">Dashboard</Link>
+                            </div>
+                        }
                         </li>
                     </ul>
                 </div>

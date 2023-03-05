@@ -2,7 +2,6 @@ import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
 export default function Vehicles({ vehicle, toggleComplete, handleDelete, handleEdit,}) {
   const [newTitle, setNewTitle] = React.useState(vehicle.title);
 
@@ -11,7 +10,7 @@ export default function Vehicles({ vehicle, toggleComplete, handleDelete, handle
     if (vehicle.complete === true) {
       setNewTitle(vehicle.title);
     } else {
-        vehicle.title = "";
+      vehicle.title = "";
       setNewTitle(e.target.value);
     }
   };

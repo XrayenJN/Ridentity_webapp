@@ -1,7 +1,8 @@
 import React from "react";
 import { useRef, useState } from 'react';
+import { useAuth, logout } from "../firebase";
 
-export default function AddVehicle() {
+export default function LogOut() {
     // AUTH PART
     const [loading, setLoading] = useState(false);
     const currentUser = useAuth();
