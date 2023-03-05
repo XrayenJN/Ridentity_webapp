@@ -6,7 +6,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { storage } from '../firebase';
 import { ref, list, listAll, getDownloadURL } from "firebase/storage"
 import { useLocation } from 'react-router-dom'
-import {getDoc, doc} from 'firebase/firestore'
+import {getDocs, doc} from 'firebase/firestore'
+import { collection } from "firebase/firestore";
+import "./RideDetail.css";
 
 import QRCode from "./QRCode";
 
@@ -15,13 +17,14 @@ const RideDetail = () => {
     const rideId= location.pathname.split('/')[2];
     
     // const ride = doc(db, "rides", rideid)
+    const rideCollectionRef = collection(db, "rides");
+
     const [rideList, setRideList] = useState([]);
     const [imgUrl, setImgUrls] = useState([]);
     useEffect(() => {
         const fetchImages = async () => {
             const storageRef = ref(storage, 'pictureFiles/'+rideId);
             const result = await listAll(storageRef);
-           
             const urlPromises = result.items.map((imageRef) => getDownloadURL(imageRef));
             Promise.all(urlPromises).then((res) => setImgUrls(res));
         };
@@ -30,27 +33,12 @@ const RideDetail = () => {
     }, [])
 
     return (
-        <div className="RegisterRide">
+        <div className="RegisterRide" style={{justify: "center"}}>
             {auth.currentUser?.email && (
                 <>
                 <div>
                 <QRCode />
                 </div>
-                    <div>
-                        {rideList.map((ride) => (
-                            (ride.userID == auth.currentUser.uid) ?
-                                (
-                                    <div className="container-fluid">
-                                        {ride.name}
-                                        {ride.model}
-                                        {ride.serial_num}
-                                        {ride.userID}
-                                    </div>
-                                )
-                                : ""
-                        ))}
-                    </div>
-
                     <div>
                         {imgUrl.map((url) => (
                             <img src={url} />

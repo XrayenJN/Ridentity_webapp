@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useAuth } from '../firebase';
 import { logout } from '../firebase';
 
-const verifyStatus = false;
+const verifyStatus = true;
 
 export default function Navbar() {
     // AUTH PART

@@ -1,0 +1,10 @@
+.RegisterRide {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+}
+
+.qr-btn {
+    margin-top: 1rem;
+}

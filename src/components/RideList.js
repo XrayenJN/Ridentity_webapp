@@ -70,11 +70,11 @@ const RideList = () => {
 
                                             <CardContent>
                                                 <Typography gutterBottom variant="h5" component="div">
-                                                    {ride.name}
+                                                    CARBON
 
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {ride.model}
+                                                    MOUNTAIN BIKE AMX9588
                                                 </Typography>
                                                 <div className="">
                                                     <Button

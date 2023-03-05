@@ -3,6 +3,8 @@ import React from "react";
 import RegisterRide from "./RegisterRide";
 import RideList from "./RideList";
 import QRCode from "./QRCode";
+import { Button } from "@mui/material";
+import { addDoc } from "firebase/firestore";
 
 export default function Dashboard() {
     const currentUser = useAuth();
@@ -10,14 +12,8 @@ export default function Dashboard() {
     return (
         <div className="App">
             <div>
-                <div id="fields">
-                    <div>Currently logged in as: { currentUser?.email } </div>
-                    <QRCode />
-                </div>
-            </div>
-            <div>
                 <a href="/registerRide">
-                    <button >Add New Ride Register</button>
+                <Button variant="contained" onClick={''}>Add new Ride</Button>
                 </a>
                 <RideList />
             </div>
